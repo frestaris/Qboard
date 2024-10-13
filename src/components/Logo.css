@@ -9,7 +9,7 @@
 
 .logo-text {
   font-size: 2em;
-  background: linear-gradient(to left, #ffcd00, #ffef31);
+  background: linear-gradient(to right, #ffcd00, #ff5100);
   -webkit-background-clip: text;
   color: transparent;
   display: inline-block;

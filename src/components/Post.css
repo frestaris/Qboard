@@ -1,9 +1,8 @@
 .post {
-  border: 1px solid #ccc;
   padding: 16px;
   margin-bottom: 16px;
   border-radius: 8px;
-  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 2.4px 3.2px;
 }
 
 .post-header {
@@ -23,8 +22,11 @@
 .post-name {
   font-weight: bold;
   margin-right: 8px;
+  color: var(--text-color);
 }
-
+.post-dot {
+  color: #888;
+}
 .post-time {
   font-size: 0.85em;
   color: #888;
@@ -37,11 +39,14 @@
 .post-title {
   font-size: 1.2em;
   margin-bottom: 8px;
-  color: white;
+  color: var(--text-color);
 }
 
 .post-content {
   font-size: 1em;
   line-height: 1.5;
   color: #555;
+}
+.post-category {
+  color: var(--text-color);
 }

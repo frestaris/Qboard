@@ -1,77 +1,45 @@
 import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Main from "./components/Main";
 import Navigation from "./components/Navigation";
+import data from "./data";
 
 function App() {
-  const initialPosts = [
-    {
-      id: 1,
-      avatar: "https://via.placeholder.com/32",
-      name: "John Doe",
-      time: "2 hours ago",
-      title: "First Post",
-      content: "This is the content of the first post.",
-    },
-    {
-      id: 2,
-      avatar: "https://via.placeholder.com/32",
-      name: "Jane Smith",
-      time: "5 hours ago",
-      title: "Second Post",
-      content: "Here is the second post with some more content.",
-    },
-    {
-      id: 3,
-      avatar: "https://via.placeholder.com/32",
-      name: "Alice Johnson",
-      time: "1 day ago",
-      title: "Third Post",
-      content: "Third post content goes here, a bit longer to show layout.",
-    },
-    {
-      id: 4,
-      avatar: "https://via.placeholder.com/32",
-      name: "John Doe",
-      time: "2 hours ago",
-      title: "First Post",
-      content: "This is the content of the first post.",
-    },
-    {
-      id: 5,
-      avatar: "https://via.placeholder.com/32",
-      name: "Jane Smith",
-      time: "5 hours ago",
-      title: "Second Post",
-      content: "Here is the second post with some more content.",
-    },
-    {
-      id: 6,
-      avatar: "https://via.placeholder.com/32",
-      name: "Alice Johnson",
-      time: "1 day ago",
-      title: "Third Post",
-      content: "Third post content goes here, a bit longer to show layout.",
-    },
-  ];
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState(data);
+  const [query, setQuery] = useState("");
 
   const handleSearch = (query) => {
-    if (query.length >= 3) {
-      const filteredPosts = initialPosts.filter((post) =>
+    if (query.length >= 2) {
+      const filteredPosts = data.filter((post) =>
         post.title.toLowerCase().includes(query.toLowerCase())
       );
       setPosts(filteredPosts);
     } else {
-      setPosts(initialPosts);
+      setPosts(data);
     }
   };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    handleSearch(value);
+  };
+
+  const clearSearch = () => {
+    setQuery("");
+    setPosts(data);
+  };
+
   return (
     <>
-      <Navigation onSearch={handleSearch} />
+      <Navigation handleInputChange={handleInputChange} />
       <div className="content-container">
-        <Dashboard />
-        <Main posts={posts} />
+        <Dashboard clearSearch={clearSearch} />
+        <Routes>
+          <Route path="/" element={<Main posts={posts} />} />
+          <Route path="/category/:category" element={<Main posts={posts} />} />
+        </Routes>
       </div>
     </>
   );
