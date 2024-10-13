@@ -1,0 +1,47 @@
+.post {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background-color: black;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.post-name {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.post-time {
+  font-size: 0.85em;
+  color: #888;
+}
+
+.post-body {
+  text-align: left;
+}
+
+.post-title {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.post-content {
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+}

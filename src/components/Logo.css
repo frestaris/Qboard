@@ -1,0 +1,16 @@
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin: 0 10px;
+}
+
+.logo-text {
+  font-size: 2em;
+  background: linear-gradient(to left, #ffcd00, #ffef31);
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
