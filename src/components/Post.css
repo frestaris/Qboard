@@ -5,6 +5,49 @@
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 2.4px 3.2px;
 }
 
+.post-bottom-section {
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.like-icons {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.icon-container {
+  position: relative;
+  margin-left: 10px;
+}
+
+.icon-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(197, 197, 197, 0.5);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.icon-container:hover::before {
+  opacity: 1;
+}
+
+.like-icons img {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  z-index: 1;
+}
+
 .post-header {
   display: flex;
   align-items: center;

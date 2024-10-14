@@ -15,12 +15,19 @@
 .view-icons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 30px;
 }
+
+.add-post-icon img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.right-icons {
+  display: flex;
+}
 .view-icons .icon {
-  width: 24px;
-  height: 24px;
   cursor: pointer;
   margin-left: 10px;
 }
@@ -37,17 +44,11 @@
 
 .posts-container.grid .post {
   flex: 1 1 calc(33.333% - 20px);
-  min-width: 200px;
-  max-width: 100%;
-}
-
-@media (max-width: 600px) {
-  .main-content {
-    margin-left: 80px;
-  }
 }
 
 .dropdown {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
@@ -68,4 +69,10 @@
 
 .dropdown-menu div:hover {
   background-color: #f0f0f0;
+}
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-left: 80px;
+  }
 }

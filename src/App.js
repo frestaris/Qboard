@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import Main from "./components/Main";
 import Navigation from "./components/Navigation";
 import data from "./data";
+import AddPost from "./components/AddPost";
 
 function App() {
   const [posts, setPosts] = useState(data);
@@ -39,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Main posts={posts} />} />
           <Route path="/category/:category" element={<Main posts={posts} />} />
+          <Route path="/add-post" element={<AddPost setPosts={setPosts} />} />
         </Routes>
       </div>
     </>

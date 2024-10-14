@@ -1,7 +1,10 @@
 import React from "react";
 import "./Post.css";
+import like from "../assets/like.png";
+import liked from "../assets/liked.png";
+import comment from "../assets/comment.png";
 
-function Post({ post }) {
+function Post({ post, isLiked, toggleLikePost }) {
   const formatTimeAgo = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -46,7 +49,23 @@ function Post({ post }) {
       <div className="post-body">
         <h3 className="post-title">{post.title}</h3>
         <p className="post-content">{post.content}</p>
-        <span className="post-category">Category: {post.category}</span>
+        <div className="post-bottom-section">
+          <span className="post-category">Category: {post.category}</span>
+          <div className="like-icons">
+            <div
+              className="icon-container"
+              onClick={() => toggleLikePost(post.id)}
+            >
+              <img
+                src={isLiked ? liked : like}
+                alt={isLiked ? "liked" : "like"}
+              />
+            </div>
+            <div className="icon-container">
+              <img src={comment} alt="comment" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

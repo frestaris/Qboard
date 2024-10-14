@@ -1,22 +1,34 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Main.css";
 import Post from "./Post";
 import rowIcon from "../assets/row.png";
 import gridIcon from "../assets/grid.png";
 import filters from "../assets/filters.png";
+import addPostIcon from "../assets/add-post.png";
 
 function Main({ posts }) {
   const { category } = useParams();
   const [viewMode, setViewMode] = useState("row");
-  const [sortOrder, setSortOrder] = useState("latest");
+  const [sortOrder, setSortOrder] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [likedPosts, setLikedPosts] = useState({});
+
+  const navigate = useNavigate();
+
+  const handleAddPostClick = () => {
+    navigate("/add-post");
+  };
 
   const filteredPosts = category
     ? posts.filter(
         (post) => post.category.toLowerCase() === category.toLowerCase()
       )
     : posts;
+
+  const likedFilteredPosts = filteredPosts.filter(
+    (post) => likedPosts[post.id]
+  );
 
   const sortedPosts = [...filteredPosts].sort((a, b) => {
     const dateA = new Date(a.time);
@@ -32,6 +44,9 @@ function Main({ posts }) {
     return 0;
   });
 
+  const postsToRender =
+    sortOrder === "liked" ? likedFilteredPosts : sortedPosts;
+
   const toggleViewMode = () => {
     setViewMode((prevMode) => (prevMode === "row" ? "grid" : "row"));
   };
@@ -39,6 +54,13 @@ function Main({ posts }) {
   const handleSortChange = (order) => {
     setSortOrder(order);
     setIsDropdownOpen(false);
+  };
+
+  const toggleLikePost = (postId) => {
+    setLikedPosts((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
   };
 
   return (
@@ -50,49 +72,67 @@ function Main({ posts }) {
             : "All Posts"}
         </h1>
 
-        {sortedPosts.length > 0 ? (
-          <p>{sortedPosts.length} Results found</p>
+        {postsToRender.length > 0 ? (
+          <p>{postsToRender.length} Results found</p>
         ) : (
           <p>No posts found</p>
         )}
       </div>
       <div className="view-icons">
-        {viewMode === "grid" ? (
+        <div className="add-post-icon">
           <img
-            src={gridIcon}
-            alt="Switch to row view"
-            className="icon"
-            onClick={toggleViewMode}
+            src={addPostIcon}
+            alt="add post icon"
+            onClick={handleAddPostClick}
           />
-        ) : (
-          <img
-            src={rowIcon}
-            alt="Switch to grid view"
-            className="icon"
-            onClick={toggleViewMode}
-          />
-        )}
-        <div className="dropdown">
-          <img
-            src={filters}
-            alt="filters"
-            className="icon"
-            onClick={() => setIsDropdownOpen((prev) => !prev)}
-          />
-          {isDropdownOpen && (
-            <div className="dropdown-menu">
-              <div onClick={() => handleSortChange("latest")}>Latest</div>
-              <div onClick={() => handleSortChange("oldest")}>Oldest</div>
-              <div onClick={() => handleSortChange("alphabetical")}>
-                Alphabetical
-              </div>
-            </div>
+        </div>
+        <div className="right-icons">
+          {viewMode === "grid" ? (
+            <img
+              src={gridIcon}
+              alt="Switch to row view"
+              className="icon"
+              onClick={toggleViewMode}
+            />
+          ) : (
+            <img
+              src={rowIcon}
+              alt="Switch to grid view"
+              className="icon"
+              onClick={toggleViewMode}
+            />
           )}
+
+          <div className="dropdown">
+            <img
+              src={filters}
+              alt="filters"
+              className="icon"
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+            />
+            {isDropdownOpen && (
+              <div className="dropdown-menu">
+                <div onClick={() => handleSortChange("latest")}>Latest</div>
+                <div onClick={() => handleSortChange("oldest")}>Oldest</div>
+                <div onClick={() => handleSortChange("alphabetical")}>
+                  Alphabetical
+                </div>
+                <div onClick={() => handleSortChange("liked")}>Liked</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className={`posts-container ${viewMode}`}>
-        {sortedPosts.length > 0 ? (
-          sortedPosts.map((post) => <Post key={post.id} post={post} />)
+        {postsToRender.length > 0 ? (
+          postsToRender.map((post) => (
+            <Post
+              key={post.id}
+              post={post}
+              isLiked={likedPosts[post.id]}
+              toggleLikePost={toggleLikePost}
+            />
+          ))
         ) : (
           <p>No posts available for this category.</p>
         )}
