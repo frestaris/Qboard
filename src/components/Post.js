@@ -5,7 +5,7 @@ import "./Post.css";
 
 function Post() {
   const { id } = useParams();
-  const { posts, setPosts } = usePostContext();
+  const { posts, setPosts, formatTimeAgo } = usePostContext();
   const [newComment, setNewComment] = useState("");
 
   const post = posts.find((post) => post.id === parseInt(id));
@@ -37,26 +37,37 @@ function Post() {
     <div className="main-content">
       <div className="post-container">
         <h2>{post.title}</h2>
-        <img src={post.avatar} alt={post.name} className="post-avatar" />
-        <p>
-          <strong>{post.name}</strong> - {new Date(post.time).toLocaleString()}
-        </p>
-        <p>{post.content}</p>
-        <p>
-          <em>Category: {post.category}</em>
-        </p>
+        <div className="top-section-container">
+          <img className="avatar" src={post.avatar} alt={post.name} />
+          <div>
+            <span className="post-name">{post.name}</span>
+            <span className="post-dot">&#x2022; </span>
+            <span className="post-time">{formatTimeAgo(post.time)}</span>
+          </div>
+        </div>
+        <p className="post-content">{post.content}</p>
+
+        <span className="post-category">
+          Category: <strong>{post.category}</strong>
+        </span>
       </div>
 
+      <h3 className="comment-title-section">Comments</h3>
       <div className="comments-section">
-        <h3>Comments</h3>
         {post.comments.length === 0 ? (
           <p>No comments yet.</p>
         ) : (
           <ul>
             {post.comments.map((comment, index) => (
-              <li key={index}>
-                <strong>{comment.author}</strong>: {comment.content}{" "}
-                <em>({new Date(comment.time).toLocaleString()})</em>
+              <li key={index} className="comment-section-container">
+                <div className="left-comment">
+                  <img className="avatar" src={post.avatar} alt={post.name} />
+                  <strong>{comment.author} </strong>
+                  <span className="post-time">
+                    &#x2022; {formatTimeAgo(comment.time)}
+                  </span>
+                </div>
+                <span className="post-content">{comment.content}</span>
               </li>
             ))}
           </ul>

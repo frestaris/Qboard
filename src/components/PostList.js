@@ -4,6 +4,7 @@ import like from "../assets/like.png";
 import liked from "../assets/liked.png";
 import comment from "../assets/comment.png";
 import { useNavigate } from "react-router-dom";
+import { usePostContext } from "../PostContext";
 
 function PostList({
   post,
@@ -13,6 +14,7 @@ function PostList({
   likesCount,
 }) {
   const navigate = useNavigate();
+  const { formatTimeAgo } = usePostContext();
 
   const handlePostClick = () => {
     navigate(`/post/${post.id}`);
@@ -20,38 +22,6 @@ function PostList({
 
   const handleLike = () => {
     toggleLikePost(post.id);
-  };
-
-  const formatTimeAgo = (dateString) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const seconds = Math.floor((now - date) / 1000);
-
-    const intervalInSeconds = seconds;
-    const intervalInMinutes = Math.floor(intervalInSeconds / 60);
-    const intervalInHours = Math.floor(intervalInMinutes / 60);
-    const intervalInDays = Math.floor(intervalInHours / 24);
-    const intervalInWeeks = Math.floor(intervalInDays / 7);
-    const intervalInMonths = Math.floor(intervalInDays / 30);
-    const intervalInYears = Math.floor(intervalInMonths / 12);
-
-    if (intervalInSeconds < 30) return "Just Now";
-    if (intervalInYears >= 1)
-      return `${intervalInYears} year${intervalInYears > 1 ? "s" : ""} ago`;
-    if (intervalInMonths >= 1)
-      return `${intervalInMonths} month${intervalInMonths > 1 ? "s" : ""} ago`;
-    if (intervalInWeeks >= 1)
-      return `${intervalInWeeks} week${intervalInWeeks > 1 ? "s" : ""} ago`;
-    if (intervalInDays >= 1)
-      return `${intervalInDays} day${intervalInDays > 1 ? "s" : ""} ago`;
-    if (intervalInHours >= 1)
-      return `${intervalInHours} hour${intervalInHours > 1 ? "s" : ""} ago`;
-    if (intervalInMinutes >= 1)
-      return `${intervalInMinutes} minute${
-        intervalInMinutes > 1 ? "s" : ""
-      } ago`;
-
-    return `${intervalInSeconds} second${intervalInSeconds > 1 ? "s" : ""} ago`;
   };
 
   return (
@@ -68,7 +38,9 @@ function PostList({
         <h3 className="post-title">{post.title}</h3>
         <p className="post-content">{post.content}</p>
         <div className="post-bottom-section">
-          <span className="post-category">Category: {post.category}</span>
+          <span className="post-category">
+            Category: <strong>{post.category}</strong>
+          </span>
           <div className="button-icons">
             <div className="icon-container-like" onClick={handleLike}>
               <img

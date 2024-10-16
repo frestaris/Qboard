@@ -12,17 +12,17 @@ const initialPosts = [
       {
         author: "User1",
         content: "Great post!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
       },
       {
         author: "User2",
         content: "I totally agree with this.",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 58 * 60 * 1000).toISOString(),
       },
       {
         author: "User3",
         content: "Can’t wait to check them out!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 57 * 60 * 1000).toISOString(),
       },
     ],
   },
@@ -39,12 +39,12 @@ const initialPosts = [
       {
         author: "User4",
         content: "This is really insightful!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
       },
       {
         author: "User5",
         content: "I meditate every day; it helps a lot!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 29 * 60 * 1000).toISOString(),
       },
     ],
   },
@@ -61,17 +61,17 @@ const initialPosts = [
       {
         author: "User6",
         content: "I love this list!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 9 * 60 * 60 * 1000).toISOString(),
       },
       {
         author: "User7",
         content: "Where's my favorite movie?",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(),
       },
       {
         author: "User8",
         content: "I disagree with some choices, but overall a great list!",
-        time: new Date().toISOString(),
+        time: new Date(Date.now() - 40 * 60 * 1000).toISOString(),
       },
     ],
   },
@@ -308,3 +308,308 @@ const initialPosts = [
 ];
 
 export default initialPosts;
+
+// const initialPosts = [
+//   {
+//     id: 1,
+//     avatar: "https://i.pravatar.cc/48?u=499476",
+//     name: "John Doe",
+//     time: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
+//     title: "Top 10 Music Albums of 2023",
+//     content: "Here are the top 10 music albums you should listen to this year.",
+//     category: "Music",
+//     likes: 150,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=123456",
+//           name: "User1",
+//         },
+//         content: "Great post!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=234567",
+//           name: "User2",
+//         },
+//         content: "I totally agree with this.",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=345678",
+//           name: "User3",
+//         },
+//         content: "Can’t wait to check them out!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 2,
+//     avatar: "https://i.pravatar.cc/48?u=493676",
+//     name: "Jane Smith",
+//     time: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(), // 5 hours ago
+//     title: "Health Benefits of Daily Meditation",
+//     content: "Meditation is known to improve mental clarity and reduce stress.",
+//     category: "Health",
+//     likes: 30,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=456789",
+//           name: "User4",
+//         },
+//         content: "This is really insightful!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=567890",
+//           name: "User5",
+//         },
+//         content: "I meditate every day; it helps a lot!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 3,
+//     avatar: "https://i.pravatar.cc/48?u=499606",
+//     name: "Alice Johnson",
+//     time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+//     title: "The Best Movies of the Decade",
+//     content: "A comprehensive list of the best movies from the past 10 years.",
+//     category: "Movie",
+//     likes: 100,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=678901",
+//           name: "User6",
+//         },
+//         content: "I love this list!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=789012",
+//           name: "User7",
+//         },
+//         content: "Where's my favorite movie?",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=890123",
+//           name: "User8",
+//         },
+//         content: "I disagree with some choices, but overall a great list!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 4,
+//     avatar: "https://i.pravatar.cc/48?u=189476",
+//     name: "Mark Anthony",
+//     time: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(), // 3 hours ago
+//     title: "Latest Gaming Trends in 2024",
+//     content:
+//       "A look at the upcoming trends and games to watch out for in 2024.",
+//     category: "Gaming",
+//     likes: 75,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=901234",
+//           name: "User9",
+//         },
+//         content: "Excited for the new releases!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=012345",
+//           name: "User10",
+//         },
+//         content: "I hope they focus on gameplay this time.",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 5,
+//     avatar: "https://i.pravatar.cc/48?u=490776",
+//     name: "Sarah Lee",
+//     time: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(), // 8 hours ago
+//     title: "DIY Home Improvement Tips",
+//     content: "Learn how to improve your home with these simple DIY tips.",
+//     category: "DIY",
+//     likes: 50,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=112345",
+//           name: "User11",
+//         },
+//         content: "These tips are really helpful!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=223456",
+//           name: "User12",
+//         },
+//         content: "I tried one of these and it worked!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 6,
+//     avatar: "https://i.pravatar.cc/48?u=678198",
+//     name: "Tom Harris",
+//     time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+//     title: "Top Travel Destinations for 2024",
+//     content: "Here are the must-visit travel destinations for 2024.",
+//     category: "Travel",
+//     likes: 20,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=334567",
+//           name: "User13",
+//         },
+//         content: "Saving this for later!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=445678",
+//           name: "User14",
+//         },
+//         content: "Looks amazing! I'm going to book a trip.",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 7,
+//     avatar: "https://i.pravatar.cc/48?u=999999",
+//     name: "Emily Clark",
+//     time: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(), // 3 hours ago
+//     title: "Best Practices for Remote Work",
+//     content:
+//       "Explore effective strategies to boost productivity while working remotely.",
+//     category: "Business",
+//     likes: 10,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=556789",
+//           name: "User15",
+//         },
+//         content: "Very useful tips!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=667890",
+//           name: "User16",
+//         },
+//         content: "I'll try these methods.",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 8,
+//     avatar: "https://i.pravatar.cc/48?u=888888",
+//     name: "Michael Brown",
+//     time: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(), // 1 hour ago
+//     title: "Understanding Cryptocurrency: A Beginner's Guide",
+//     content: "A comprehensive introduction to the world of cryptocurrency.",
+//     category: "Finance",
+//     likes: 5,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=778901",
+//           name: "User17",
+//         },
+//         content: "I'm still confused about this.",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=889012",
+//           name: "User18",
+//         },
+//         content: "Thanks for breaking it down!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 9,
+//     avatar: "https://i.pravatar.cc/48?u=777777",
+//     name: "Jessica Taylor",
+//     time: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+//     title: "Traveling on a Budget: Tips and Tricks",
+//     content:
+//       "Learn how to travel without breaking the bank with these helpful tips.",
+//     category: "Travel",
+//     likes: 80,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=990123",
+//           name: "User19",
+//         },
+//         content: "Can't wait to use these tips!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=111234",
+//           name: "User20",
+//         },
+//         content: "Great suggestions!",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+//   {
+//     id: 10,
+//     avatar: "https://i.pravatar.cc/48?u=101010",
+//     name: "Chris Evans",
+//     time: new Date(Date.now() - 10 * 60 * 60 * 1000).toISOString(), // 10 hours ago
+//     title: "The Future of Renewable Energy",
+//     content:
+//       "A discussion on the advancements and future of renewable energy sources.",
+//     category: "Environment",
+//     likes: 60,
+//     comments: [
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=222222",
+//           name: "User21",
+//         },
+//         content: "This is a hot topic!",
+//         time: new Date().toISOString(),
+//       },
+//       {
+//         author: {
+//           avatar: "https://i.pravatar.cc/48?u=333333",
+//           name: "User22",
+//         },
+//         content: "I hope to see more innovations soon.",
+//         time: new Date().toISOString(),
+//       },
+//     ],
+//   },
+// ];
+
+// export default initialPosts;

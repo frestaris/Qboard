@@ -48,6 +48,9 @@ function Main() {
   );
 
   const sortedPosts = [...filteredPosts].sort((a, b) => {
+    if (sortOrder === "none") {
+      return 0;
+    }
     const dateA = new Date(a.time);
     const dateB = new Date(b.time);
 
@@ -68,7 +71,6 @@ function Main() {
 
   const postsToRender =
     sortOrder === "liked" ? likedFilteredPosts : sortedPosts;
-  console.log("Posts to Render:", postsToRender);
   return (
     <div className="main-content">
       <div className="top-main-section">
@@ -131,6 +133,7 @@ function Main() {
                 <div onClick={() => handleSortChange("most commented")}>
                   Most commented
                 </div>
+                <div onClick={() => handleSortChange("none")}>No Filter</div>
               </div>
             )}
           </div>

@@ -40,7 +40,7 @@ function AddPost() {
     // setName("");
     setTitle("");
     setContent("");
-    setCategoryInput("");
+    setCategoryInput(""); // Reset to default option
     navigate("/");
   };
 
@@ -93,6 +93,9 @@ function AddPost() {
             value={categoryInput}
             onChange={(e) => setCategoryInput(e.target.value)}
           >
+            <option value="Select a category" disabled>
+              Select a category
+            </option>
             <option value="Music">Music</option>
             <option value="Health">Health</option>
             <option value="Movie">Movie</option>
@@ -103,7 +106,11 @@ function AddPost() {
             <option value="Travel">Travel</option>
           </select>
         </label>
-        <button type="submit" className="add-post-button">
+        <button
+          type="submit"
+          className="add-post-button"
+          disabled={categoryInput === "Select a category"}
+        >
           Add Post
         </button>
       </form>

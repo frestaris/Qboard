@@ -17,7 +17,7 @@ export function PostProvider({ children }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [categoryInput, setCategoryInput] = useState("");
+  const [categoryInput, setCategoryInput] = useState("Select a category");
 
   const handleSearch = (query) => {
     setQuery(query);
@@ -82,6 +82,38 @@ export function PostProvider({ children }) {
     post.title.toLowerCase().includes(query.toLowerCase())
   );
 
+  const formatTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const seconds = Math.floor((now - date) / 1000);
+
+    const intervalInSeconds = seconds;
+    const intervalInMinutes = Math.floor(intervalInSeconds / 60);
+    const intervalInHours = Math.floor(intervalInMinutes / 60);
+    const intervalInDays = Math.floor(intervalInHours / 24);
+    const intervalInWeeks = Math.floor(intervalInDays / 7);
+    const intervalInMonths = Math.floor(intervalInDays / 30);
+    const intervalInYears = Math.floor(intervalInMonths / 12);
+
+    if (intervalInSeconds < 30) return "Just Now";
+    if (intervalInYears >= 1)
+      return `${intervalInYears} year${intervalInYears > 1 ? "s" : ""} ago`;
+    if (intervalInMonths >= 1)
+      return `${intervalInMonths} month${intervalInMonths > 1 ? "s" : ""} ago`;
+    if (intervalInWeeks >= 1)
+      return `${intervalInWeeks} week${intervalInWeeks > 1 ? "s" : ""} ago`;
+    if (intervalInDays >= 1)
+      return `${intervalInDays} day${intervalInDays > 1 ? "s" : ""} ago`;
+    if (intervalInHours >= 1)
+      return `${intervalInHours} hour${intervalInHours > 1 ? "s" : ""} ago`;
+    if (intervalInMinutes >= 1)
+      return `${intervalInMinutes} minute${
+        intervalInMinutes > 1 ? "s" : ""
+      } ago`;
+
+    return `${intervalInSeconds} second${intervalInSeconds > 1 ? "s" : ""} ago`;
+  };
+
   return (
     <PostContext.Provider
       value={{
@@ -101,6 +133,7 @@ export function PostProvider({ children }) {
         query,
         setQuery,
         toggleLikePost,
+        formatTimeAgo,
         // AddPost form values and handlers
         avatar,
         setAvatar,
