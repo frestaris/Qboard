@@ -1,55 +1,65 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePostContext } from "../PostContext";
-import "./AddPost.css";
+import "./EditPost.css"; // Create a CSS file for styling if needed
 
-function AddPost() {
-  const {
-    handleAddPost,
-    avatar,
-    // setAvatar,
-    name,
-    // setName,
-    title,
-    setTitle,
-    content,
-    setContent,
-    categoryInput,
-    setCategoryInput,
-  } = usePostContext();
-
+function EditPost() {
+  const { posts, setPosts } = usePostContext();
+  const { id } = useParams(); // Get the post ID from the URL
   const navigate = useNavigate();
+
+  // Find the post by ID
+  const postToEdit = posts.find((post) => post.id === parseInt(id));
+
+  // State variables for the form
+  const [avatar, setAvatar] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
+  const [categoryInput, setCategoryInput] = React.useState("");
+
+  // Populate form fields with existing post data
+  useEffect(() => {
+    if (postToEdit) {
+      setAvatar(postToEdit.avatar);
+      setName(postToEdit.name);
+      setTitle(postToEdit.title);
+      setContent(postToEdit.content);
+      setCategoryInput(postToEdit.category);
+    }
+  }, [postToEdit]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newPost = {
-      id: Date.now(),
+    const updatedPost = {
+      id: postToEdit.id,
       avatar,
       name,
-      time: new Date().toISOString(),
+      time: postToEdit.time, // Keep the original time
       title,
       content,
       category: categoryInput,
-      comments: [],
-      likes: 0,
     };
 
-    handleAddPost(newPost);
-    // setAvatar("");
-    // setName("");
-    setTitle("");
-    setContent("");
-    setCategoryInput("");
+    // Update the post in the posts array
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
+    );
+
     navigate("/");
   };
 
+  if (!postToEdit) {
+    return <div>Post not found.</div>;
+  }
+
   return (
     <div className="main-content">
-      <form onSubmit={handleSubmit} className="add-post-form">
-        <h2>Add New Post</h2>
+      <form onSubmit={handleSubmit} className="edit-post-form">
+        <h2>Edit Post</h2>
         {/* <label>
-          Avatar URL:
+          Avatar:
           <input
             type="text"
             value={avatar}
@@ -66,8 +76,8 @@ function AddPost() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
             required
-          />
-        </label> */}
+          /> 
+        </label>*/}
         <label>
           Title:
           <input
@@ -103,12 +113,12 @@ function AddPost() {
             <option value="Travel">Travel</option>
           </select>
         </label>
-        <button type="submit" className="add-post-button">
-          Add Post
+        <button type="submit" className="edit-post-button">
+          Update Post
         </button>
       </form>
     </div>
   );
 }
 
-export default AddPost;
+export default EditPost;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePostContext } from "../PostContext";
-import Post from "./Post";
+import PostList from "./PostList";
 import "./Main.css";
 import rowIcon from "../assets/row.png";
 import gridIcon from "../assets/grid.png";
@@ -18,8 +18,9 @@ function Main() {
     isDropdownOpen,
     setIsDropdownOpen,
     likedPosts,
-    setLikedPosts,
+    toggleLikePost,
   } = usePostContext();
+
   const { category } = useParams();
   const navigate = useNavigate();
 
@@ -36,12 +37,6 @@ function Main() {
     setIsDropdownOpen(false);
   };
 
-  const toggleLikePost = (postId) => {
-    setLikedPosts((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
   const filteredPosts = category
     ? posts.filter(
         (post) => post.category.toLowerCase() === category.toLowerCase()
@@ -62,12 +57,18 @@ function Main() {
       return dateA - dateB;
     } else if (sortOrder === "alphabetical") {
       return a.title.localeCompare(b.title);
+    } else if (sortOrder === "most liked") {
+      return b.likes - a.likes;
+    } else if (sortOrder === "most commented") {
+      return b.comments.length - a.comments.length;
     }
+
     return 0;
   });
+
   const postsToRender =
     sortOrder === "liked" ? likedFilteredPosts : sortedPosts;
-
+  console.log("Posts to Render:", postsToRender);
   return (
     <div className="main-content">
       <div className="top-main-section">
@@ -123,19 +124,29 @@ function Main() {
                   Alphabetical
                 </div>
                 <div onClick={() => handleSortChange("liked")}>Liked</div>
+                <div onClick={() => handleSortChange("most liked")}>
+                  Most Liked
+                </div>
+
+                <div onClick={() => handleSortChange("most commented")}>
+                  Most commented
+                </div>
               </div>
             )}
           </div>
         </div>
       </div>
+
       <div className={`posts-container ${viewMode}`}>
         {postsToRender.length > 0 ? (
           postsToRender.map((post) => (
-            <Post
+            <PostList
               key={post.id}
               post={post}
               isLiked={likedPosts[post.id]}
               toggleLikePost={toggleLikePost}
+              commentsCount={post.comments.length}
+              likesCount={post.likes}
             />
           ))
         ) : (

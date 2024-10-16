@@ -1,47 +1,69 @@
 .add-post-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
+  width: 100%;
   margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 10px;
+}
+
+.add-post-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #343a40;
 }
 
 .add-post-form label {
-  margin-bottom: 10px;
+  display: block;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #495057;
 }
 
 .add-post-form input,
-.add-post-form textarea,
-.add-post-form select {
-  margin-top: 5px;
-  padding: 8px;
-  border: 1px solid #ccc;
+.add-post-form select,
+.add-post-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
   border-radius: 4px;
+  font-size: 14px;
+  color: #495057;
+  margin-top: 5px;
+  transition: border-color 0.2s ease-in-out;
 }
 
-.add-post-form .add-post-button {
-  margin-top: 15px;
+.add-post-form input:focus,
+.add-post-form select:focus,
+.add-post-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.add-post-form textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.add-post-form select {
+  height: 40px;
+}
+
+.add-post-button {
+  width: 100%;
   padding: 10px;
+  margin-top: 20px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-.add-post-form .add-post-button:hover {
+.add-post-button:hover {
   background-color: #0056b3;
 }
 
-.success-message {
-  color: green;
-  margin-bottom: 10px;
-}
-
-.error-message {
-  color: red;
-  margin-bottom: 10px;
+.add-post-button:focus {
+  outline: none;
 }

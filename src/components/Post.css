@@ -1,95 +1,60 @@
-.post {
-  padding: 16px;
-  margin-bottom: 16px;
+.post-container {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 2.4px 3.2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.post-bottom-section {
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.like-icons {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.icon-container {
-  position: relative;
-  margin-left: 10px;
-}
-
-.icon-container::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
+.post-avatar {
+  max-width: 100px;
   border-radius: 50%;
-  background-color: rgba(197, 197, 197, 0.5);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  margin-right: 10px;
 }
 
-.icon-container:hover::before {
-  opacity: 1;
+.comments-section {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.like-icons img {
-  width: 24px;
-  height: 24px;
-  position: relative;
-  z-index: 1;
+.comments-section h3 {
+  margin-top: 0;
 }
 
-.post-header {
+.comments-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comments-section li {
+  margin: 5px 0;
+  padding: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-form {
   display: flex;
-  align-items: center;
-  margin-bottom: 12px;
+  flex-direction: column;
+}
+
+.comment-form textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.comment-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
   color: white;
+  cursor: pointer;
 }
 
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-.post-name {
-  font-weight: bold;
-  margin-right: 8px;
-  color: var(--text-color);
-}
-.post-dot {
-  color: #888;
-}
-.post-time {
-  font-size: 0.85em;
-  color: #888;
-}
-
-.post-body {
-  text-align: left;
-}
-
-.post-title {
-  font-size: 1.2em;
-  margin-bottom: 8px;
-  color: var(--text-color);
-}
-
-.post-content {
-  font-size: 1em;
-  line-height: 1.5;
-  color: #555;
-}
-.post-category {
-  color: var(--text-color);
+.comment-form button:hover {
+  background-color: #0056b3;
 }

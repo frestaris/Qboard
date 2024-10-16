@@ -1,72 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import { usePostContext } from "../PostContext";
 import "./Post.css";
-import like from "../assets/like.png";
-import liked from "../assets/liked.png";
-import comment from "../assets/comment.png";
 
-function Post({ post, isLiked, toggleLikePost }) {
-  const formatTimeAgo = (dateString) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const seconds = Math.floor((now - date) / 1000);
+function Post() {
+  const { id } = useParams();
+  const { posts, setPosts } = usePostContext();
+  const [newComment, setNewComment] = useState("");
 
-    const intervalInSeconds = seconds;
-    const intervalInMinutes = Math.floor(intervalInSeconds / 60);
-    const intervalInHours = Math.floor(intervalInMinutes / 60);
-    const intervalInDays = Math.floor(intervalInHours / 24);
-    const intervalInWeeks = Math.floor(intervalInDays / 7);
-    const intervalInMonths = Math.floor(intervalInDays / 30);
-    const intervalInYears = Math.floor(intervalInMonths / 12);
+  const post = posts.find((post) => post.id === parseInt(id));
 
-    if (intervalInSeconds < 30) return "Just Now";
-    if (intervalInYears >= 1)
-      return `${intervalInYears} year${intervalInYears > 1 ? "s" : ""} ago`;
-    if (intervalInMonths >= 1)
-      return `${intervalInMonths} month${intervalInMonths > 1 ? "s" : ""} ago`;
-    if (intervalInWeeks >= 1)
-      return `${intervalInWeeks} week${intervalInWeeks > 1 ? "s" : ""} ago`;
-    if (intervalInDays >= 1)
-      return `${intervalInDays} day${intervalInDays > 1 ? "s" : ""} ago`;
-    if (intervalInHours >= 1)
-      return `${intervalInHours} hour${intervalInHours > 1 ? "s" : ""} ago`;
-    if (intervalInMinutes >= 1)
-      return `${intervalInMinutes} minute${
-        intervalInMinutes > 1 ? "s" : ""
-      } ago`;
+  if (!post) {
+    return <div>Post not found.</div>;
+  }
 
-    return `${intervalInSeconds} second${intervalInSeconds > 1 ? "s" : ""} ago`;
+  const handleAddComment = (e) => {
+    e.preventDefault();
+    if (newComment.trim()) {
+      const comment = {
+        author: "Current User",
+        content: newComment,
+        time: new Date().toISOString(),
+      };
+
+      setPosts((prevPosts) => {
+        return prevPosts.map((p) =>
+          p.id === post.id ? { ...p, comments: [...p.comments, comment] } : p
+        );
+      });
+
+      setNewComment("");
+    }
   };
 
   return (
-    <div className="post">
-      <div className="post-header">
-        <img className="avatar" src={post.avatar} alt={post.name} />
-        <div>
-          <span className="post-name">{post.name}</span>
-          <span className="post-dot">&#x2022; </span>
-          <span className="post-time">{formatTimeAgo(post.time)}</span>
-        </div>
+    <div className="main-content">
+      <div className="post-container">
+        <h2>{post.title}</h2>
+        <img src={post.avatar} alt={post.name} className="post-avatar" />
+        <p>
+          <strong>{post.name}</strong> - {new Date(post.time).toLocaleString()}
+        </p>
+        <p>{post.content}</p>
+        <p>
+          <em>Category: {post.category}</em>
+        </p>
       </div>
-      <div className="post-body">
-        <h3 className="post-title">{post.title}</h3>
-        <p className="post-content">{post.content}</p>
-        <div className="post-bottom-section">
-          <span className="post-category">Category: {post.category}</span>
-          <div className="like-icons">
-            <div
-              className="icon-container"
-              onClick={() => toggleLikePost(post.id)}
-            >
-              <img
-                src={isLiked ? liked : like}
-                alt={isLiked ? "liked" : "like"}
-              />
-            </div>
-            <div className="icon-container">
-              <img src={comment} alt="comment" />
-            </div>
-          </div>
-        </div>
+
+      <div className="comments-section">
+        <h3>Comments</h3>
+        {post.comments.length === 0 ? (
+          <p>No comments yet.</p>
+        ) : (
+          <ul>
+            {post.comments.map((comment, index) => (
+              <li key={index}>
+                <strong>{comment.author}</strong>: {comment.content}{" "}
+                <em>({new Date(comment.time).toLocaleString()})</em>
+              </li>
+            ))}
+          </ul>
+        )}
+        <form onSubmit={handleAddComment} className="comment-form">
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+            required
+          />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );

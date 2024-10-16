@@ -13,6 +13,12 @@ export function PostProvider({ children }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [likedPosts, setLikedPosts] = useState({});
 
+  const [avatar, setAvatar] = useState("");
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [categoryInput, setCategoryInput] = useState("");
+
   const handleSearch = (query) => {
     setQuery(query);
     if (query.length >= 2) {
@@ -32,6 +38,29 @@ export function PostProvider({ children }) {
   const handleClearPosts = () => {
     setQuery("");
     setPosts(data);
+  };
+
+  const toggleLikePost = (postId) => {
+    setPosts((prevPosts) => {
+      return prevPosts.map((post) => {
+        if (post.id === postId) {
+          const isLiked = likedPosts[postId];
+          return {
+            ...post,
+            likes: isLiked ? post.likes - 1 : post.likes + 1,
+          };
+        }
+        return post;
+      });
+    });
+
+    setLikedPosts((prevLikedPosts) => {
+      const isLiked = prevLikedPosts[postId];
+      return {
+        ...prevLikedPosts,
+        [postId]: !isLiked,
+      };
+    });
   };
 
   const filteredPosts = category
@@ -71,6 +100,18 @@ export function PostProvider({ children }) {
         setLikedPosts,
         query,
         setQuery,
+        toggleLikePost,
+        // AddPost form values and handlers
+        avatar,
+        setAvatar,
+        name,
+        setName,
+        title,
+        setTitle,
+        content,
+        setContent,
+        categoryInput,
+        setCategoryInput,
       }}
     >
       {children}
