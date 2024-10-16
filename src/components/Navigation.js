@@ -3,11 +3,11 @@ import "./Navigation.css";
 import Logo from "./Logo";
 import Search from "./Search";
 
-function Navigation({ handleInputChange }) {
+function Navigation() {
   return (
     <div className="navigation">
       <Logo />
-      <Search handleInputChange={handleInputChange} />
+      <Search />
     </div>
   );
 }

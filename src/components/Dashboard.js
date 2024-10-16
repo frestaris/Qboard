@@ -36,8 +36,12 @@ function Dashboard() {
         <hr />
         <ul className="nav-list">
           {categories.map((category, index) => (
-            <Link to={`/category/${category.title}`} className="nav-link">
-              <li key={index} className="nav-item">
+            <Link
+              key={index}
+              to={`/category/${category.title}`}
+              className="nav-link"
+            >
+              <li className="nav-item">
                 <img
                   src={category.icon}
                   alt={category.title}

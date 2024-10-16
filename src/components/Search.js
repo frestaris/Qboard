@@ -1,7 +1,14 @@
 import React from "react";
+import { usePostContext } from "../PostContext";
 import "./Search.css";
 
-function Search({ handleInputChange }) {
+function Search() {
+  const { handleSearch } = usePostContext();
+
+  const handleInputChange = (e) => {
+    handleSearch(e.target.value);
+  };
+
   return (
     <div className="nav-right">
       <input

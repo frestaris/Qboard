@@ -18,6 +18,7 @@ function Post({ post, isLiked, toggleLikePost }) {
     const intervalInMonths = Math.floor(intervalInDays / 30);
     const intervalInYears = Math.floor(intervalInMonths / 12);
 
+    if (intervalInSeconds < 30) return "Just Now";
     if (intervalInYears >= 1)
       return `${intervalInYears} year${intervalInYears > 1 ? "s" : ""} ago`;
     if (intervalInMonths >= 1)

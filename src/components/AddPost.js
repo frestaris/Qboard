@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "./AddPost.css";
 import { useNavigate } from "react-router-dom";
+import { usePostContext } from "../PostContext";
+import "./AddPost.css";
 
-function AddPost({ setPosts }) {
+function AddPost() {
+  const { handleAddPost } = usePostContext();
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
@@ -13,7 +15,6 @@ function AddPost({ setPosts }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/");
 
     const newPost = {
       id: Date.now(),
@@ -25,13 +26,8 @@ function AddPost({ setPosts }) {
       category,
     };
 
-    setPosts((prevPosts) => [...prevPosts, newPost]);
-
-    setAvatar("");
-    setName("");
-    setTitle("");
-    setContent("");
-    setCategory("");
+    handleAddPost(newPost);
+    navigate("/");
   };
 
   return (

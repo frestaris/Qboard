@@ -1,25 +1,47 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "./Main.css";
+import React from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { usePostContext } from "../PostContext";
 import Post from "./Post";
+import "./Main.css";
 import rowIcon from "../assets/row.png";
 import gridIcon from "../assets/grid.png";
 import filters from "../assets/filters.png";
 import addPostIcon from "../assets/add-post.png";
 
-function Main({ posts }) {
+function Main() {
+  const {
+    posts,
+    viewMode,
+    setViewMode,
+    sortOrder,
+    setSortOrder,
+    isDropdownOpen,
+    setIsDropdownOpen,
+    likedPosts,
+    setLikedPosts,
+  } = usePostContext();
   const { category } = useParams();
-  const [viewMode, setViewMode] = useState("row");
-  const [sortOrder, setSortOrder] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [likedPosts, setLikedPosts] = useState({});
-
   const navigate = useNavigate();
 
   const handleAddPostClick = () => {
     navigate("/add-post");
   };
 
+  const toggleViewMode = () => {
+    setViewMode((prevMode) => (prevMode === "row" ? "grid" : "row"));
+  };
+
+  const handleSortChange = (order) => {
+    setSortOrder(order);
+    setIsDropdownOpen(false);
+  };
+
+  const toggleLikePost = (postId) => {
+    setLikedPosts((prev) => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }));
+  };
   const filteredPosts = category
     ? posts.filter(
         (post) => post.category.toLowerCase() === category.toLowerCase()
@@ -43,25 +65,8 @@ function Main({ posts }) {
     }
     return 0;
   });
-
   const postsToRender =
     sortOrder === "liked" ? likedFilteredPosts : sortedPosts;
-
-  const toggleViewMode = () => {
-    setViewMode((prevMode) => (prevMode === "row" ? "grid" : "row"));
-  };
-
-  const handleSortChange = (order) => {
-    setSortOrder(order);
-    setIsDropdownOpen(false);
-  };
-
-  const toggleLikePost = (postId) => {
-    setLikedPosts((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
 
   return (
     <div className="main-content">
