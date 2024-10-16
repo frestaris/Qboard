@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { usePostContext } from "../PostContext";
+import like from "../assets/like.png";
+import liked from "../assets/liked.png";
+import comment from "../assets/comment.png";
 import "./Post.css";
 
 function Post() {
   const { id } = useParams();
-  const { posts, setPosts, formatTimeAgo } = usePostContext();
+  const { posts, setPosts, formatTimeAgo, toggleLikePost, likedPosts } =
+    usePostContext();
   const [newComment, setNewComment] = useState("");
 
   const post = posts.find((post) => post.id === parseInt(id));
@@ -13,6 +17,10 @@ function Post() {
   if (!post) {
     return <div>Post not found.</div>;
   }
+
+  const likesCount = post.likes;
+  const commentsCount = post.comments.length;
+  const isLiked = likedPosts[post.id];
 
   const handleAddComment = (e) => {
     e.preventDefault();
@@ -33,6 +41,10 @@ function Post() {
     }
   };
 
+  const handleLike = () => {
+    toggleLikePost(post.id);
+  };
+
   return (
     <div className="main-content">
       <div className="post-container">
@@ -47,9 +59,41 @@ function Post() {
         </div>
         <p className="post-content">{post.content}</p>
 
-        <span className="post-category">
-          Category: <strong>{post.category}</strong>
-        </span>
+        <div className="post-bottom-section">
+          <span className="post-category">
+            Category: <strong>{post.category}</strong>
+          </span>
+          <div className="button-icons">
+            <div className="icon-container-like" onClick={handleLike}>
+              {likesCount > 0 ? (
+                <>
+                  <span className="post-likes-count-circle">{likesCount}</span>
+                  <img
+                    src={isLiked ? liked : like}
+                    alt={isLiked ? "liked" : "like"}
+                  />
+                </>
+              ) : (
+                <img
+                  src={isLiked ? liked : like}
+                  alt={isLiked ? "liked" : "like"}
+                />
+              )}
+            </div>
+            <div className="icon-container-comment">
+              {commentsCount > 0 ? (
+                <>
+                  <span className="post-comments-count-circle">
+                    {commentsCount}
+                  </span>
+                  <img src={comment} alt="comment" />
+                </>
+              ) : (
+                <img src={comment} alt="comment" />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       <h3 className="comment-title-section">Comments</h3>
@@ -72,16 +116,16 @@ function Post() {
             ))}
           </ul>
         )}
-        <form onSubmit={handleAddComment} className="comment-form">
-          <textarea
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Add a comment..."
-            required
-          />
-          <button type="submit">Submit</button>
-        </form>
       </div>
+      <form onSubmit={handleAddComment} className="comment-form">
+        <textarea
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment..."
+          required
+        />
+        <button type="submit">Add Comment</button>
+      </form>
     </div>
   );
 }

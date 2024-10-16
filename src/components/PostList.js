@@ -43,17 +43,32 @@ function PostList({
           </span>
           <div className="button-icons">
             <div className="icon-container-like" onClick={handleLike}>
-              <img
-                src={isLiked ? liked : like}
-                alt={isLiked ? "liked" : "like"}
-              />
-              <span className="post-likes-count-circle">{likesCount}</span>
+              {likesCount > 0 ? (
+                <>
+                  <span className="post-likes-count-circle">{likesCount}</span>
+                  <img
+                    src={isLiked ? liked : like}
+                    alt={isLiked ? "liked" : "like"}
+                  />
+                </>
+              ) : (
+                <img
+                  src={isLiked ? liked : like}
+                  alt={isLiked ? "liked" : "like"}
+                />
+              )}
             </div>
             <div className="icon-container-comment" onClick={handlePostClick}>
-              <span className="post-comments-count-circle">
-                {commentsCount}
-              </span>
-              <img src={comment} alt="comment" />
+              {commentsCount > 0 ? (
+                <>
+                  <span className="post-comments-count-circle">
+                    {commentsCount}
+                  </span>
+                  <img src={comment} alt="comment" />
+                </>
+              ) : (
+                <img src={comment} alt="comment" />
+              )}
             </div>
           </div>
         </div>

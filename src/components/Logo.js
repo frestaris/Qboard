@@ -4,7 +4,7 @@ function Logo() {
   return (
     <div className="nav-left">
       <img src={logo} alt="Logo" className="logo" />
-      <span className="logo-text">Fastboard</span>
+      <span className="logo-text">Q.board</span>
     </div>
   );
 }

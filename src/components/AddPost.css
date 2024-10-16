@@ -34,7 +34,7 @@
 .add-post-form input:focus,
 .add-post-form select:focus,
 .add-post-form textarea:focus {
-  border-color: #007bff;
+  border-color: #342c9e;
   outline: none;
 }
 
@@ -51,7 +51,7 @@
   width: 100%;
   padding: 10px;
   margin-top: 20px;
-  background-color: #007bff;
+  background-color: #342c9e;
   color: white;
   border: none;
   border-radius: 4px;
