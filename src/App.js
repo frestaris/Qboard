@@ -6,6 +6,9 @@ import Navigation from "./components/Navigation";
 import AddPost from "./components/AddPost";
 import { PostProvider } from "./PostContext";
 import Post from "./components/Post";
+import LoginPage from "./components/LoginPage";
+import RegisterForm from "./components/RegisterForm";
+import UserProfile from "./components/UserProfile";
 // import EditPost from "./components/EditPost";
 
 function App() {
@@ -20,6 +23,9 @@ function App() {
           <Route path="/add-post" element={<AddPost />} />
           {/* <Route path="/edit-post/:id" element={<EditPost />} /> */}
           <Route path="/post/:id" element={<Post />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/user" element={<UserProfile />} />
         </Routes>
       </div>
     </PostProvider>

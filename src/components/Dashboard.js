@@ -26,8 +26,6 @@ function Dashboard() {
     { title: "Education", icon: education },
     { title: "DIY", icon: diy },
     { title: "Travel", icon: travel },
-    { title: "DIY", icon: diy },
-    { title: "Travel", icon: travel },
   ];
 
   const toggleCategories = () => {
@@ -41,6 +39,16 @@ function Dashboard() {
           <div className="top-sidebar">
             <img src={home} alt="home" className="icon" />
             <span className="icons-text">Home</span>
+          </div>
+        </Link>
+        <Link to="/user" className="user-link">
+          <div className="top-sidebar">
+            <img
+              src="https://i.pravatar.cc/48?u=333333"
+              alt="user"
+              className="avatar-dashboard"
+            />
+            <span className="icons-text">User</span>
           </div>
         </Link>
 
