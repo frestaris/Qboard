@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import data from "./data";
 
 const PostContext = createContext();
 
-export function PostProvider({ children }) {
+export function PostProvider({ children, isLoggedIn }) {
   const [posts, setPosts] = useState(data);
   const [query, setQuery] = useState("");
   const { category } = useParams();
@@ -19,6 +19,7 @@ export function PostProvider({ children }) {
   const [content, setContent] = useState("");
   const [categoryInput, setCategoryInput] = useState("Select a category");
 
+  const navigate = useNavigate();
   const handleSearch = (query) => {
     setQuery(query);
     if (query.length >= 2) {
@@ -41,6 +42,12 @@ export function PostProvider({ children }) {
   };
 
   const toggleLikePost = (postId) => {
+    if (!isLoggedIn) {
+      alert("You need to log in to like a post.");
+      navigate("/login");
+      return;
+    }
+
     setPosts((prevPosts) => {
       return prevPosts.map((post) => {
         if (post.id === postId) {
@@ -56,10 +63,15 @@ export function PostProvider({ children }) {
 
     setLikedPosts((prevLikedPosts) => {
       const isLiked = prevLikedPosts[postId];
-      return {
+      const updatedLikedPosts = {
         ...prevLikedPosts,
         [postId]: !isLiked,
       };
+
+      // Store the liked posts in local storage
+      localStorage.setItem("likedPosts", JSON.stringify(updatedLikedPosts));
+
+      return updatedLikedPosts;
     });
   };
 
@@ -134,7 +146,6 @@ export function PostProvider({ children }) {
         setQuery,
         toggleLikePost,
         formatTimeAgo,
-        // AddPost form values and handlers
         avatar,
         setAvatar,
         name,

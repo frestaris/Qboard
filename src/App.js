@@ -15,7 +15,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   return (
-    <PostProvider>
+    <PostProvider isLoggedIn={isLoggedIn}>
       <Navigation
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
@@ -52,7 +52,7 @@ function App() {
           />
           <Route
             path="/user"
-            element={<UserProfile isLoggedIn={isLoggedIn} />}
+            element={<UserProfile isLoggedIn={isLoggedIn} user={user} />}
           />
         </Routes>
       </div>

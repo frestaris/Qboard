@@ -11,21 +11,19 @@ function LoginPage({ setIsLoggedIn, setUser }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    if (storedUser) {
-      const { username: storedUsername, password: storedPassword } = storedUser;
+    const foundUser = storedUsers.find(
+      (user) => user.username === username && user.password === password
+    );
 
-      if (username === storedUsername && password === storedPassword) {
-        setIsLoggedIn(true);
-        const from = location.state?.from?.pathname || "/";
-        setUser(storedUser);
-        navigate(from);
-      } else {
-        setErrorMessage("Invalid username or password.");
-      }
+    if (foundUser) {
+      setIsLoggedIn(true);
+      const from = location.state?.from?.pathname || "/";
+      setUser(foundUser);
+      navigate(from);
     } else {
-      setErrorMessage("No user found. Please register.");
+      setErrorMessage("Invalid username or password.");
     }
   };
 

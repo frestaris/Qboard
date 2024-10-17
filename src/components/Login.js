@@ -4,7 +4,7 @@ import logoutIcon from "../assets/logout.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-function Login({ isLoggedIn, setIsLoggedIn, setUser }) {
+function Login({ isLoggedIn, setIsLoggedIn, setUser, setPosts }) {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {

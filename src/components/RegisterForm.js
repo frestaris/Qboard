@@ -4,7 +4,6 @@ import "./RegisterForm.css";
 
 function RegisterForm({ setUser }) {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const navigate = useNavigate();
@@ -23,8 +22,14 @@ function RegisterForm({ setUser }) {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const newUser = { username, email, password, profilePicture };
-    localStorage.setItem("user", JSON.stringify(newUser));
+    const newUser = {
+      username,
+      password,
+      profilePicture,
+    };
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
     setUser(newUser);
     navigate("/login");
   };
@@ -39,15 +44,6 @@ function RegisterForm({ setUser }) {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username..."
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email..."
             required
           />
         </div>
