@@ -3,13 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { usePostContext } from "../PostContext";
 import "./AddPost.css";
 
-function AddPost() {
+function AddPost({ user }) {
   const {
     handleAddPost,
-    avatar,
-    // setAvatar,
-    name,
-    // setName,
     title,
     setTitle,
     content,
@@ -25,8 +21,8 @@ function AddPost() {
 
     const newPost = {
       id: Date.now(),
-      avatar,
-      name,
+      avatar: user?.profilePicture, // Use user avatar from props
+      name: user?.username,
       time: new Date().toISOString(),
       title,
       content,
@@ -36,11 +32,9 @@ function AddPost() {
     };
 
     handleAddPost(newPost);
-    // setAvatar("");
-    // setName("");
     setTitle("");
     setContent("");
-    setCategoryInput(""); // Reset to default option
+    setCategoryInput("");
     navigate("/");
   };
 
@@ -48,26 +42,6 @@ function AddPost() {
     <div className="main-content">
       <form onSubmit={handleSubmit} className="add-post-form">
         <h2>Add New Post</h2>
-        {/* <label>
-          Avatar URL:
-          <input
-            type="text"
-            value={avatar}
-            onChange={(e) => setAvatar(e.target.value)}
-            placeholder="Enter avatar URL"
-            required
-          />
-        </label>
-        <label>
-          Name:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
-            required
-          />
-        </label> */}
         <label>
           Title:
           <input

@@ -31,9 +31,15 @@ function App() {
           />
           <Route
             path="/add-post"
-            element={isLoggedIn ? <AddPost /> : <LoginPage />}
+            element={
+              isLoggedIn ? (
+                <AddPost user={user} />
+              ) : (
+                <LoginPage setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+              )
+            }
           />
-          <Route path="/post/:id" element={<Post />} />
+          <Route path="/post/:id" element={<Post user={user} />} />
           <Route
             path="/login"
             element={

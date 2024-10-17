@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./Login.css";
 
 function LoginPage({ setIsLoggedIn, setUser }) {
@@ -7,6 +7,7 @@ function LoginPage({ setIsLoggedIn, setUser }) {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,8 +18,9 @@ function LoginPage({ setIsLoggedIn, setUser }) {
 
       if (username === storedUsername && password === storedPassword) {
         setIsLoggedIn(true);
+        const from = location.state?.from?.pathname || "/";
         setUser(storedUser);
-        navigate("/");
+        navigate(from);
       } else {
         setErrorMessage("Invalid username or password.");
       }

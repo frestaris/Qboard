@@ -85,3 +85,26 @@
 .comment-form button:hover {
   background-color: #0056b3;
 }
+
+.login-prompt {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.login-prompt button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #342c9e;
+  color: white;
+  cursor: pointer;
+}
+
+.login-prompt button:hover {
+  background-color: #0056b3;
+}

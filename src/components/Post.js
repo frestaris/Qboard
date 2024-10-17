@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom"; // Added useLocation
 import { usePostContext } from "../PostContext";
 import like from "../assets/like.png";
 import liked from "../assets/liked.png";
 import comment from "../assets/comment.png";
+import userPic from "../assets/user.png";
 import "./Post.css";
 
-function Post() {
+function Post({ user }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const { posts, setPosts, formatTimeAgo, toggleLikePost, likedPosts } =
     usePostContext();
   const [newComment, setNewComment] = useState("");
@@ -26,9 +29,10 @@ function Post() {
     e.preventDefault();
     if (newComment.trim()) {
       const comment = {
-        author: "Current User",
+        author: user ? user.username : "Anonymous",
         content: newComment,
         time: new Date().toISOString(),
+        profilePicture: user ? user.profilePicture : userPic,
       };
 
       setPosts((prevPosts) => {
@@ -43,6 +47,10 @@ function Post() {
 
   const handleLike = () => {
     toggleLikePost(post.id);
+  };
+
+  const handleLoginRedirect = () => {
+    navigate("/login", { state: { from: location } }); // Pass current location to login page
   };
 
   return (
@@ -105,8 +113,12 @@ function Post() {
             {post.comments.map((comment, index) => (
               <li key={index} className="comment-section-container">
                 <div className="left-comment">
-                  <img className="avatar" src={post.avatar} alt={post.name} />
-                  <strong>{comment.author} </strong>
+                  <img
+                    className="avatar"
+                    src={comment.profilePicture || userPic}
+                    alt={comment.author}
+                  />
+                  <strong>{comment.author}</strong>
                   <span className="post-time">
                     &#x2022; {formatTimeAgo(comment.time)}
                   </span>
@@ -117,15 +129,23 @@ function Post() {
           </ul>
         )}
       </div>
-      <form onSubmit={handleAddComment} className="comment-form">
-        <textarea
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-          required
-        />
-        <button type="submit">Add Comment</button>
-      </form>
+
+      {user ? (
+        <form onSubmit={handleAddComment} className="comment-form">
+          <textarea
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+            required
+          />
+          <button type="submit">Add Comment</button>
+        </form>
+      ) : (
+        <div className="login-prompt">
+          <p>Please log in to add a comment.</p>
+          <button onClick={handleLoginRedirect}>Log In</button>
+        </div>
+      )}
     </div>
   );
 }

@@ -25,3 +25,15 @@
   width: 100%;
   padding: 10px;
 }
+
+.image-preview {
+  margin-top: 1rem;
+}
+
+.profile-picture-preview {
+  max-width: 200px; /* Make the image smaller */
+  max-height: 200px; /* Make the image smaller */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}
