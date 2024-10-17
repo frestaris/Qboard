@@ -1,12 +1,20 @@
+import React from "react";
 import loginIcon from "../assets/login.png";
+import logoutIcon from "../assets/logout.png";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-function Login() {
+function Login({ isLoggedIn, setIsLoggedIn, setUser }) {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate("/login");
+    if (!isLoggedIn) {
+      navigate("/login");
+    } else {
+      setIsLoggedIn(false);
+      setUser(null);
+      navigate("/");
+    }
   };
 
   return (
@@ -15,7 +23,10 @@ function Login() {
       onClick={handleLoginClick}
       style={{ cursor: "pointer" }}
     >
-      <img src={loginIcon} alt="login icon" />
+      <img
+        src={isLoggedIn ? logoutIcon : loginIcon}
+        alt={isLoggedIn ? "logout icon" : "login icon"}
+      />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import topics from "../assets/topics.png";
 import arrowUp from "../assets/arrow-up.png";
 import arrowDown from "../assets/arrow-down.png";
 
-function Dashboard() {
+function Dashboard({ isLoggedIn, user }) {
   const [showCategories, setShowCategories] = useState(false);
 
   const categories = [
@@ -41,16 +41,18 @@ function Dashboard() {
             <span className="icons-text">Home</span>
           </div>
         </Link>
-        <Link to="/user" className="user-link">
-          <div className="top-sidebar">
-            <img
-              src="https://i.pravatar.cc/48?u=333333"
-              alt="user"
-              className="avatar-dashboard"
-            />
-            <span className="icons-text">User</span>
-          </div>
-        </Link>
+        {isLoggedIn && (
+          <Link to="/user" className="user-link">
+            <div className="top-sidebar">
+              <img
+                src={user.profilePicture || "https://i.pravatar.cc/48?u=333333"}
+                alt={user.username}
+                className="avatar-dashboard"
+              />
+              <span className="icons-text">{user.username}</span>
+            </div>
+          </Link>
+        )}
 
         <hr />
         <div className="categories-button" onClick={toggleCategories}>

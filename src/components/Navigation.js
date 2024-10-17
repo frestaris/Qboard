@@ -4,11 +4,15 @@ import Logo from "./Logo";
 import Search from "./Search";
 import Login from "./Login";
 
-function Navigation() {
+function Navigation({ isLoggedIn, setIsLoggedIn, setUser }) {
   return (
     <div className="navigation">
       <Logo />
-      <Login />
+      <Login
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        setUser={setUser}
+      />
       <Search />
     </div>
   );
